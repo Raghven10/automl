@@ -1,0 +1,9 @@
+.gitIgnore
+.DS_Store
+.idea/
+st_env/
+logs.log
+data.csv
+best_model.pkl
+sourcedata.csv
+crimes.dataset.csv
