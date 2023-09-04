@@ -12,8 +12,8 @@ from pycaret.regression import setup, compare_models, pull, save_model
 with st.sidebar:
     st.image("ml_img.jpg")
     st.title("Auto Stream ML")
-    choice = st.radio("Navigation", ["Upload", "Profiling", "ML", "Download"])
-    st.info("This application allows you to build an automated ML pipeline using Streamlit")
+    choice = st.radio("Navigation", ["Upload", "Train"])
+    st.info("An automated ML pipeline app using PYdata")
 
 if os.path.exists("sourcedata.csv"):
     df = pd.read_csv("sourcedata.csv", index_col=None)
@@ -33,19 +33,23 @@ if choice == "Upload":
 if choice == "ML":
     st.title("Select Target and Train Model")
     target = st.selectbox("Select Target", df.columns)
-    if st.button("Trrain Model"):
+    if st.button("Train Model"):
         setup(df, target=target)
         setup_df = pull()
-        st.info("This is experimental settings")
+        st.info("Analysis of data to train the model on selected target")
         st.dataframe(setup_df)
         best_model = compare_models()
         compare_df = pull()
-        st.info("this is the ml model")
+        st.info("Here is the trained ml model")
         st.dataframe(compare_df)
         save_model(best_model, "best_model")
 
+        with open("best_model.pkl", "rb") as f:
+            st.download_button("Download model", f, "best_model.pkl")
+
 
 if choice == "Download":
+    st.title("Download the trained Model")
     with open("best_model.pkl", "rb") as f:
         st.download_button("Download the model", f, "best_model.pkl")
 
