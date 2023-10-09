@@ -30,7 +30,7 @@ if choice == "Upload":
             st_profile_report = st_profile_report(profile_report)
 
 
-if choice == "ML":
+if choice == "Train":
     st.title("Select Target and Train Model")
     target = st.selectbox("Select Target", df.columns)
     if st.button("Train Model"):
